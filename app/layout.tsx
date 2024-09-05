@@ -6,8 +6,8 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const ibmplexserif = IBM_Plex_Serif({ subsets: ["latin"], weight: ["400","700"], variable: "--font-ibm-plex-serif" });
 
 export const metadata: Metadata = {
-  title: "Horizon",
-  description: "Horizon is modern banking platform for everyone.",
+  title: "PayPass",
+  description: "PayPass is modern banking platform for everyone.",
   icons:{
     icon:"/icons/logo.svg"
   }
