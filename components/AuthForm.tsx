@@ -12,11 +12,13 @@ import { authformSchema } from "@/lib/utils";
 import { z } from "zod";
 import { Loader } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { getLoggedInUser, signIn, signUp } from "@/lib/actions/user.actions";
 
 
 const AuthForm = ({ type }: { type: string }) => {
   const [user, setUser] = useState(null);
   const [isloading, setIsLoading] = useState(false);
+  
 
   const router = useRouter();
   const formSchema = authformSchema(type);
@@ -32,35 +34,23 @@ const AuthForm = ({ type }: { type: string }) => {
 
   // 2. Define a submit handler.
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
+    
     setIsLoading(true);
     try {
       // Signup with appwrite & create plaid token
 
       if (type === "sign-up") {
-        // const newUser = await SignUp(data)
-        // setUser(newUser)
-        // const userData = {
-        //     fristName: data.firstName,
-        //     lastName: data.lastName,
-        //     address: data.address,
-        //     city: data.city,
-        //     state: data.state,
-        //     postalCode: data.postalCode,
-        //     dateOfBirth: data.dateOfBirth,
-        //     cnic: data.cnic,
-        //     email: data.email,
-        //     password: data.password
-        // }
+        const newUser = await signUp(data)
+        setUser(newUser)
+        
       }
       if (type === "sign-in") {
-    //     const response = await SignIn({
-    //       email: data.email,
-    //       password: data.password,
-    //     });
-
-    //     if(response) router.push('/') 
+        const response = await signIn({
+          email: data.email,
+          password: data.password,
+        });
+        console.log(response);
+        if(response) router.push('/') 
       }
     } catch (error) {
       console.log(error);
@@ -161,7 +151,7 @@ const AuthForm = ({ type }: { type: string }) => {
                     control={form.control}
                     name="email"
                     label="Email"
-                    placeholder="Enter your Email"
+                    placeholder="Enter your email"
                   />
                   <CustomInput
                     control={form.control}
@@ -177,7 +167,7 @@ const AuthForm = ({ type }: { type: string }) => {
                       control={form.control}
                       name="email"
                       label="Email"
-                      placeholder="Enter your Email"
+                      placeholder="Enter your email"
                     />
                     <CustomInput
                       control={form.control}
