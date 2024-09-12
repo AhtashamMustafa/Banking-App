@@ -199,14 +199,14 @@ export const authformSchema = (type:string) => z.object({
   //Sign-Up
   firstName:type === 'sign-in'? z.string().optional() : z.string().min(3),
   lastName:type === 'sign-in'? z.string().optional() : z.string().min(3),
-  address:type === 'sign-in'? z.string().optional() : z.string().min(10).max(50),
+  address:type === 'sign-in'? z.string().optional() : z.string().min(10).max(80),
   city:type === 'sign-in'? z.string().optional() : z.string().min(3).max(50),
-  state:type === 'sign-in'? z.string().optional() : z.string().min(5).max(13),
+  state:type === 'sign-in'? z.string().optional() : z.string().min(2).max(13),
   postalCode:type === 'sign-in'? z.string().optional() : z.string().min(5).max(7),
   dateOfBirth:type === 'sign-in'? z.string().optional() : z.string().min(10).max(10),
-  cnic:type === 'sign-in'? z.string().optional() : z.string().min(15).max(15),
+  ssn:type === 'sign-in'? z.string().optional() : z.string().min(4).max(15),
   
   //both
-  email:z.string().email(),
+  email:z.string().email(),             
   password:z.string().min(8, { message: "Password must be at least 8 characters long" }),
 });
