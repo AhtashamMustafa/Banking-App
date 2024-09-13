@@ -1,0 +1,11 @@
+import * as Sentry from "@sentry/nextjs";
+
+export function reportGlobalError(error, errorInfo) {
+  Sentry.captureException(error, {
+    extra: errorInfo,
+  });
+}
+
+window.onerror = (message, source, lineno, colno, error) => {
+  reportGlobalError(error, { message, source, lineno, colno });
+};
