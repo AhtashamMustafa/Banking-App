@@ -33,7 +33,7 @@ const Footer = ({ user, type = "desktop" }: FooterProps) => {
           src="./icons/logout.svg"
           width={30}
           height={30}
-          alt="PayPilot"
+          alt="PayPass"
         />
       </div>
     </footer>

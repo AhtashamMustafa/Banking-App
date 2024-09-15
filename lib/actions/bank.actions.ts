@@ -68,18 +68,25 @@ export const getAccount = async ({ appwriteItemId }: getAccountProps) => {
   try {
     // get bank from db
     const bank = await getBank({ documentId: appwriteItemId });
+    // console.log("==> bank", bank);
 
     // get account info from plaid
     const accountsResponse = await plaidClient.accountsGet({
       access_token: bank.accessToken,
     });
+    // console.log("==> accountsResponse", accountsResponse);
+
     const accountData = accountsResponse.data.accounts[0];
+   
+    // console.log("==> accountData", accountData);
 
     // get transfer transactions from appwrite
     const transferTransactionsData = await getTransactionsByBankId({
       bankId: bank.$id,
     });
 
+    // console.log("==> transferTransactionsData", transferTransactionsData);
+    
     const transferTransactions = transferTransactionsData.documents.map(
       (transferData: Transaction) => ({
         id: transferData.$id,
@@ -91,16 +98,19 @@ export const getAccount = async ({ appwriteItemId }: getAccountProps) => {
         type: transferData.senderBankId === bank.$id ? "debit" : "credit",
       })
     );
+    // console.log("==> transferTransactions", transferTransactions);
+   
 
     // get institution info from plaid
     const institution = await getInstitution({
       institutionId: accountsResponse.data.item.institution_id!,
     });
+    // console.log("==> institution", institution);
 
     const transactions = await getTransactions({
       accessToken: bank?.accessToken,
     });
-
+    // console.log("==> transactions", transactions);
     const account = {
       id: accountData.account_id,
       availableBalance: accountData.balances.available!,
@@ -113,12 +123,14 @@ export const getAccount = async ({ appwriteItemId }: getAccountProps) => {
       subtype: accountData.subtype! as string,
       appwriteItemId: bank.$id,
     };
+    // console.log("==> account", account);
 
     // sort transactions by date such that the most recent transaction is first
-      const allTransactions = [...transactions, ...transferTransactions].sort(
+    const allTransactions = [...transactions, ...transferTransactions].sort(
       (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
     );
 
+    // console.log("==> allTransactions", allTransactions);
     return parseStringify({
       data: account,
       transactions: allTransactions,

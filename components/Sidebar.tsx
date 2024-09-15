@@ -7,22 +7,23 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 import Footer from "./Footer";
+import PlaidLink from "./PlaidLink";
 
 const Sidebar = ({ user }: SiderbarProps) => {
   const pathname = usePathname();
 
   return (
     <section className="sidebar">
-      <nav className="flex flex-col gap-4">
-        <Link href="/" className="mb-12 cursor-pointer flex items-center gap-2">
+      <nav className="flex flex-col gap-6">
+        <Link href="/" className="mb-12 cursor-pointer flex items-center gap-3">
           <Image
             src="./icons/logo.svg"
-            width={34}
-            height={34}
+            width={35}
+            height={35}
             alt="Horizon logo"
-            className="size-[24px] max-xl:size-14"
+            className="size-[45px] max-xl:size-14"
           />
-          <h1 className="sidebar-logo">PayPilot</h1>
+          <h1 className="sidebar-logo">PayPass</h1>
         </Link>
         {sidebarLinks.map((item) => {
           const isActive =
@@ -46,7 +47,7 @@ const Sidebar = ({ user }: SiderbarProps) => {
           );
         })}
 
-        USER
+       <PlaidLink user={user} />
       </nav>
 
       <Footer user={user}/>
