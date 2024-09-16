@@ -1,9 +1,16 @@
 /* eslint-disable no-unused-vars */
 
-declare type SearchParamProps = {
-  params: { [key: string]: string };
-  searchParams: { [key: string]: string | string[] | undefined };
-};
+// declare type SearchParamProps = {
+//   params: { [key: string]: string };
+//   searchParams: { [key: string]: string | string[] | undefined };
+// };
+
+interface SearchParamProps {
+  searchParams: {
+    id?: string;
+    page?: string;
+  };
+}
 
 // ========================================
 

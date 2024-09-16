@@ -10,10 +10,10 @@ import { Form } from "@/components/ui/form";
 import CustomInput from "./CustomInput";
 import { authformSchema } from "@/lib/utils";
 import { z } from "zod";
-import { Loader } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { getLoggedInUser, signIn, signUp } from "@/lib/actions/user.actions";
 import PlaidLink from "./PlaidLink";
+import Loader from "./Loader";
 
 const AuthForm = ({ type }: { type: string }) => {
   const [user, setUser] = useState(null);
@@ -54,20 +54,32 @@ const AuthForm = ({ type }: { type: string }) => {
         const newUser = await signUp(userData);
         setUser(newUser);
       }
+      
       if (type === "sign-in") {
         const response = await signIn({
           email: data.email,
           password: data.password,
         });
         console.log(response);
-        if (response) router.push("/");
+        if (response){
+          router.push("/");
+          setTimeout(() => {
+            setIsLoading(false)
+          },8000)
+        } 
       }
     } catch (error) {
       console.log(error);
-    } finally {
-      setIsLoading(false);
     }
   };
+
+  if (isloading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Loader />
+      </div>
+    );
+  }
 
   return (
     <section className="auth-form">
@@ -77,10 +89,10 @@ const AuthForm = ({ type }: { type: string }) => {
             src="./icons/logo.svg"
             width={34}
             height={34}
-            alt="Horizon logo"
+            alt="Paypas logo"
           />
           <h1 className="text-26 font-ibm-plex-serif font-bold text-black-1">
-          PayPass
+            PayPass
           </h1>
         </Link>
 

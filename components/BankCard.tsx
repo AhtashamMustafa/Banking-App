@@ -9,7 +9,7 @@ const BankCard = ({
   userName,
   showBalance = true,
 }: CreditCardProps) => {
-  console.log(account, '==>account')
+  // console.log(account, '==>account')
   return (
     <div className="flex flex-col">
       <Link href={`/transaction-history/?id=${account?.appwriteItemId}`} className="bank-card min-w-[316px]">
@@ -35,7 +35,7 @@ const BankCard = ({
         </div>
 
         <div className="bank-card_icon">
-          <Image src={"./icons/paypass.svg"} width={20} height={24} alt="pay" />
+          <Image src={"./icons/Paypass.svg"} width={20} height={24} alt="pay" />
           <Image
             src={"./icons/mastercard.svg"}
             width={45}

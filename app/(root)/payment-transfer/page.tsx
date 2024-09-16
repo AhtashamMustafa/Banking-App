@@ -1,10 +1,11 @@
 import HeaderBox from '@/components/HeaderBox'
+import Loader from '@/components/Loader';
 import PaymentTransferForm from '@/components/PaymentTransferForm'
 import { getAccounts } from '@/lib/actions/bank.actions';
 import { getLoggedInUser } from '@/lib/actions/user.actions';
-import React from 'react'
+import React, { Suspense } from "react";
 
-const Transfer = async () => {
+const PaymentTransfer = async () => {
   const loggedIn = await getLoggedInUser();
   const accounts = await getAccounts({ 
     userId: loggedIn.$id 
@@ -28,4 +29,20 @@ const Transfer = async () => {
   )
 }
 
-export default Transfer
+
+const Transfer = async () => {
+  return (
+    <section>
+      <Suspense
+        fallback={
+          <div className="flex justify-center items-center h-screen">
+            <Loader />
+          </div>
+        }
+        >
+        <PaymentTransfer />
+      </Suspense>
+    </section>
+  );
+};
+export default Transfer 

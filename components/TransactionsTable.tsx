@@ -1,3 +1,5 @@
+'use client'
+
 import {
     Table,
     TableBody,
@@ -27,7 +29,7 @@ import {
   } 
   
   const TransactionsTable = ({ transactions }: TransactionTableProps) => {
-   console.log(transactions)
+  //  console.log(transactions)
     return (
       <Table>
         <TableHeader className="bg-[#f9fafb]">
